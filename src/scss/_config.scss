@@ -1,0 +1,177 @@
+@charset "utf-8";
+@import "compass";
+
+
+// img folder
+$img: '../images/';
+@function img($fileName) {
+  @return url($img + $fileName);
+}
+
+
+// width・height
+@function vw($width){
+  $viewport: 640;
+  $rate: 100 / $viewport;
+  @return $rate * $width * 1vw;
+}
+@function vh($height){
+  $viewport: 1136;
+  $rate: 100 / $viewport;
+  @return $rate * $height * 1vh;
+}
+
+
+// font
+$gothic : "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+$yu-gothic : "游ゴシック", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
+$mincho : "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
+$yu-mincho : "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
+@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900');
+%mont {
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.1em;
+}
+@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900');
+%lato {
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 0.05em;
+}
+@import url('https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700');
+%quick {
+  font-family: 'Quicksand', sans-serif;
+  letter-spacing: 0.05em;
+}
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+%noto {
+  font-family: 'Noto Sans', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+
+// font-size
+@mixin fs($font_size:10){
+  font-size: $font_size * 1px;
+  font-size: $font_size * 0.1rem;
+}
+
+@function get_vw($size, $viewport:640){
+  $rate: 100 / $viewport;
+  @return $rate * $size * 1vw;
+}
+@mixin spfs($font_size:10){
+  font-size: get_vw($font_size);
+}
+
+
+// clearfix
+%clear {
+  zoom: 1;
+  &:before, &:after {
+    display: table;
+    content: '';
+  }
+  &:after {clear: both;}
+}
+
+
+// mixin
+@mixin keyframes($animation-name: animaton) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+@mixin animation($animation-name) {
+  -webkit-animation: $animation-name;
+  -moz-animation: $animation-name;
+  animation: $animation-name;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+$mq-breakpoints: (
+  'xsmall': 320px,
+  'small' : 640px,
+  'medium': 768px,
+  'large' : 1024px,
+  'xlarge': 1280px,
+);
+@mixin mq($breakpoint: medium) {
+  @media screen and (max-width: #{map-get($mq-breakpoints, $breakpoint)}) {
+    @content;
+  }
+}
+
+@mixin flexbox {
+  display:-webkit-flex;
+  display:flex;
+}
+@mixin align-items($align){
+  $flex-align: "";
+  @if $align == "center" {
+    $flex-align: center;
+  } @else if $align == "flex-start" {
+    $flex-align: flex-start;
+  } @else if $align == "flex-end" {
+    $flex-align: flex-end;
+  } @else if $align == "baseline" {
+    $flex-align: baseline;
+  } @else if $align == "stretch" {
+    $flex-align: stretch;
+  }
+  -webkit-align-items: $flex-align;
+  align-items: $flex-align;
+}
+@mixin justify-content($pack) {
+  $flex-content: "";
+  @if $pack == "center" {
+    $flex-content: center;
+  } @else if $pack == "flex-start" {
+    $flex-content: flex-start;
+  } @else if $pack == "flex-end" {
+    $flex-content: flex-end;
+  } @else if $pack == "space-between" {
+    $flex-content: space-between;
+  } @else if $pack == "space-around" {
+    $flex-content: space-around;
+  }
+  -webkit-justify-content: $flex-content;
+  justify-content: $flex-content;
+}
+@mixin flex-wrap($pack) {
+  $flex-wrap: "";
+  @if $pack == "nowrap" {
+    $flex-wrap: nowrap;
+  } @else if $pack == "wrap" {
+    $flex-wrap: wrap;
+  } @else if $pack == "wrap-reverse" {
+    $flex-wrap: wrap-reverse;
+  }
+  -webkit-flex-wrap: $flex-wrap;
+  flex-wrap: $flex-wrap;
+}
+@mixin align-self($pack) {
+  $align-self: "";
+  @if $pack == "auto" {
+    $align-self: auto;
+  } @else if $pack == "flex-start" {
+    $align-self: flex-start;
+  } @else if $pack == "flex-end" {
+    $align-self: flex-end;
+  } @else if $pack == "center" {
+    $align-self: center;
+  } @else if $pack == "stretch " {
+    $align-self: stretch ;
+  } @else if $pack == "baseline " {
+    $align-self: baseline ;
+  }
+  -webkit-align-self: $align-self;
+  align-self: $align-self;
+}
